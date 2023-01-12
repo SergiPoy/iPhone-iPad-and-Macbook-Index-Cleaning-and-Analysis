@@ -7,6 +7,8 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library("stringr")
+library(jsonlite)
 ```
 
 # Tipologia i cicle de vida de les dades · Pràctica 2
@@ -33,6 +35,22 @@ Les carreguem a R per a poder treballar amb elles:
 preus_csv <- read.csv("../csv/preus_mac_ipad_iphone.csv")
 salaris_csv <- read.csv("../csv/average_monthly_salary_index.csv")
 divises_csv <- read.csv("../csv/world_currencies.csv")  
+```
+
+
+Com que la columna de "price" té aquest format: "{'fullPrice': 499990.0}"
+Hem d'extreure amb gsub i una RegEx el preu en format enter en comptes de "chr".
+```{r}
+head(preus_csv)
+str(preus_csv)
+preus_csv$price <- as.numeric(gsub("[^[:digit:].]", "", preus_csv$price))
+head(preus_csv)
+```
+```{r}
+preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency")
+head(preus_divises_csv)
+
+
 ```
 
 
