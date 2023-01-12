@@ -7,8 +7,8 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library("stringr")
-library(jsonlite)
+library(stringr)
+library(dplyr)
 ```
 
 # Tipologia i cicle de vida de les dades · Pràctica 2
@@ -41,16 +41,57 @@ divises_csv <- read.csv("../csv/world_currencies.csv")
 Com que la columna de "price" té aquest format: "{'fullPrice': 499990.0}"
 Hem d'extreure amb gsub i una RegEx el preu en format enter en comptes de "chr".
 ```{r}
-head(preus_csv)
-str(preus_csv)
 preus_csv$price <- as.numeric(gsub("[^[:digit:].]", "", preus_csv$price))
+head(preus_csv)
+```
+També en el procés de neteja intentem extreure el país de la columna "store":
+
+```{r}
 preus_csv$store <- gsub("^AOS: (.*) [Consumer|consumer].*$", "\\1", preus_csv$store)
 unique(preus_csv$store)
 ```
+Com podem veure amb els valors unics el filtratge no ha sortit del tot bé, i tot i així els valors no coincideixen amb un equivalent per a fer un "merge" amb salaris_csv, per exemple de valor tenim "UK" però a salaris_csv tenim "United Kingdom", per tant utilitzarem la funció case_when() per a modificar els valors que no coincideixen.
+
+Aparentment es un treball tediós però així ens asegurem que les dades estiguin ven integrades i tinguin coherència entre elles. 
+Crearem una nova columna on canviarem només el nom en els casos necessaris, en els que no el valor serà el mateix.
+
+```{r}
+preus_csv$Country <- case_when(
+  preus_csv$store == "German" ~ "Germany",
+  preus_csv$store == "Austrian" ~ "Austria",
+  preus_csv$store == "Hong Kong Chinese" ~ "Hong Kong",
+  preus_csv$store == "Czech" ~ "Czech Republic",
+  preus_csv$store == "Korea" ~ "South Korea",
+  preus_csv$store == "French Canada" ~ "Canada",
+  preus_csv$store == "Finnish" ~ "Finland",
+  preus_csv$store == "Irish" ~ "Ireland",
+  preus_csv$store == "NZ" ~ "New Zealand",
+  preus_csv$store == "US" ~ "United States",
+  preus_csv$store == "Belgium French" ~ "Belgium",
+  preus_csv$store == "Swedish" ~ "Sweden",
+  preus_csv$store == "UAE" ~ "United Arab Emirates",
+  preus_csv$store == "Belgium Flemish" ~ "Belgium",
+  preus_csv$store == "IN" ~ "India",
+  preus_csv$store == "UK" ~ "United Kingdom",
+  preus_csv$store == "Swiss French" ~ "Switzerland",
+  preus_csv$store == "Italian" ~ "Italy",
+  preus_csv$store == "AOS: Apple Store Luxembourg" ~ "Luxembourg",
+  preus_csv$store == "Swiss German" ~ "Switzerland",
+  preus_csv$store == "French" ~ "France",
+  preus_csv$store == "HongKong" ~ "Hong Kong",
+  preus_csv$store == "Dutch" ~ "Netherlands",
+  TRUE ~ preus_csv$store
+)
+print(preus_csv)
+```
+
 ```{r}
 preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency")
-head(preus_divises_csv)
+print(preus_divises_csv)
+apple_index_raw <- merge(preus_divises_csv, salaris_csv, by.x = "Country", by.y = "Country")
 
+print(apple_index_raw)
+unique(apple_index_raw$name)
 
 ```
 
