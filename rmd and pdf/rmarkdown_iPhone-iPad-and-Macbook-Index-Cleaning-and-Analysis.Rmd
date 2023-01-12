@@ -45,7 +45,7 @@ head(preus_csv)
 str(preus_csv)
 preus_csv$price <- as.numeric(gsub("[^[:digit:].]", "", preus_csv$price))
 preus_csv$store <- gsub("^AOS: (.*) [Consumer|consumer].*$", "\\1", preus_csv$store)
-print(preus_csv)
+unique(preus_csv$store)
 ```
 ```{r}
 preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency")
