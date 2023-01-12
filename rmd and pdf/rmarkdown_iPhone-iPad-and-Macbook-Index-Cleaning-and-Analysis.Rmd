@@ -9,16 +9,38 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Prova
+# Tipologia i cicle de vida de les dades · Pràctica 2
+# Neteja i Anàlisi de Dades: iPhone, iPad and Macbook Index
+### Alejandro Tortosa Molla i Sergi Poy Garcia
 
-Prova de creació
+## 1. Descripció del dataset
+Utilitzem els datasets que vam extreure a la pràctica anterior, del Iphone Ipad and Macbook Index. 
+Igual que el Big Mac Index volem tenir una comparativa de paritat de poder adquisitiu pero utilitzant com a referència els products d’Apple, per a poder tenir com a referència també un producte icònic, que no sigui del mercat de la restauració sinó de la tecnología, recordem que Apple amb iPhone representa una part molt important de la venda de mòbils a nivell global (https://gs.statcounter.com/vendor-market-share/mobile).
 
+## 2. Integracció i selecció
+
+Per al nostre projecte el que farem serà treballar amb els 3 datasets que vam obtenir en la pràctica anterior:
+
+
+- average_monthly_salary_index.csv: Aquí tenim el salari mitjà mensual en euros o en dolars i clasificat per país.
+- world_currencies.csv: Tenim l’abreviatura de totes les monedes i la seva equivalència en euros o dolars.
+- preus_mac_ipad_iphone.csv: Finalment en aquest arxiu tenim totes les dades de tots els models de Macbook, iPad i iPhone amb el seu identificatiu. Tenim a més el país on es ven cada model, així com una columna amb al divisa en la que está el preu de cada dispositiu.
+
+Obtenim així totes les dades importants i representatives a l’hora de voler elaborar l’índex com a objectiu de la pràctica.
+
+Les carreguem a R per a poder treballar amb elles:
 ```{r}
-
+preus_csv <- read.csv("../csv/preus_mac_ipad_iphone.csv")
+salaris_csv <- read.csv("../csv/average_monthly_salary_index.csv")
+divises_csv <- read.csv("../csv/world_currencies.csv")  
 ```
 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Neteja de les dades.
+Busquem si hi ha cap valor nul al dataset:
+```{r}
+anyNA(preus_csv)
+anyNA(salaris_csv)
+anyNA(divises_csv)
 ```
 
