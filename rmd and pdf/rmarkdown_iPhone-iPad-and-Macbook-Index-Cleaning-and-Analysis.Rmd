@@ -44,7 +44,7 @@ Hem d'extreure amb gsub i una RegEx el preu en format enter en comptes de "chr".
 head(preus_csv)
 str(preus_csv)
 preus_csv$price <- as.numeric(gsub("[^[:digit:].]", "", preus_csv$price))
-preus_csv$store <- gsub("^AOS: (.*) Consumer.*$", "\\1", preus_csv$store)
+preus_csv$store <- gsub("^AOS: (.*) [Consumer|consumer].*$", "\\1", preus_csv$store)
 print(preus_csv)
 ```
 ```{r}
