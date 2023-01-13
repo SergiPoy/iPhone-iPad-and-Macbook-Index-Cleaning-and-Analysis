@@ -9,6 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 library(stringr)
 library(dplyr)
+library(ggplot2)
 ```
 
 # Tipologia i cicle de vida de les dades · Pràctica 2
@@ -85,22 +86,46 @@ preus_csv$Country <- case_when(
 print(preus_csv)
 ```
 
+Donada la neteja anterior per a preparar les dades per a la fusió agafem i fem un "merge" dels 3 Csv's:
 ```{r}
 preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency")
-print(preus_divises_csv)
 apple_index_raw <- merge(preus_divises_csv, salaris_csv, by.x = "Country", by.y = "Country")
 
 print(apple_index_raw)
-unique(apple_index_raw$name)
 
+```
+
+
+Ara és hora de fer l'index, preparem les dues columnes que estaven com a "chr" i les pasem a numèric. Posteriorment amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
+La fòrmula és:
+Preu producte apple / (Sou mitjà mensual * Canvi de divisa a 1€)
+```{r}
+class(apple_index_raw$X1.EUR.in.Currency)
+class(apple_index_raw$X1.USD.in.Currency)
+
+apple_index_raw$X1.EUR.in.Currency <- as.numeric(apple_index_raw$X1.EUR.in.Currency)
+apple_index_raw$X1.USD.in.Currency <- as.numeric(apple_index_raw$X1.USD.in.Currency)
+
+apple_index_raw$months_to_buy_product <- apple_index_raw$price / (apple_index_raw$EUR.Average.Monthly.Salary * apple_index_raw$X1.EUR.in.Currency)
+print(apple_index_raw)
+```
+
+Finalment agafem un subset amb només els productes que coincideixen amb el model d'iPhone que volem analitzar i ho plotejem:
+```{r}
+iphone14PM_index <- subset(apple_index_raw, apple_index_raw$name == "iPhone 14 Pro Max 128GB Silver")
+
+
+ggplot(iphone14PM_index, aes(x=Country, y=months_to_buy_product)) + 
+  geom_bar(stat="identity") +
+  xlab("Country") +
+  ylab("Months to buy iPhone") +
+  ggtitle("Months to buy iPhone 14 Pro Max 128GB Silver by country")
 ```
 
 
 ## Neteja de les dades.
 Busquem si hi ha cap valor nul al dataset:
 ```{r}
-anyNA(preus_csv)
-anyNA(salaris_csv)
-anyNA(divises_csv)
+anyNA(apple_index_raw)
 ```
 
