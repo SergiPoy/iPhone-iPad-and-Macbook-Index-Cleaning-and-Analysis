@@ -24,6 +24,7 @@ També es poden fer més gràfiques amb diferents dispositius que els que nosalt
 - stringr
 - dplyr
 - ggplot2
+- knitr
 
 ## Membres de l'equip
 - Alejandro Tortosa
