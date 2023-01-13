@@ -73,16 +73,16 @@ unique(preus_csv$store)
 Com podem veure pels valors unics el filtratge no ha sortit del tot bé, i no coincideixen amb els equivalents de salaris_csv per a fer una fusió exitosa.
 Per exemple de valor tenim "UK" però a salaris_csv tenim "United Kingdom", per tant utilitzarem la funció case_when() per a modificar-los.
 
-Aparentment es un treball tediós però així ens asegurem que les dades estiguin ven integrades i tinguin coherència entre elles. 
+Aparentment es un treball tediós però així ens asegurem que les dades estiguin ven integrades i tinguin coherència entre elles. Farem una petita trampa, afegir "dup" a un dels camps dels països amb més d'un idioma, per a desfer-nos de les dades repetides (trobem països amb dues pàgines web per tenir dues idiomes, aquestes les haurem de treure per ser dades duplicades)
 
 ```{r}
 preus_csv$Country <- case_when(
   preus_csv$store == "German" ~ "Germany",
   preus_csv$store == "Austrian" ~ "Austria",
-  preus_csv$store == "Hong Kong Chinese" ~ "Hong Kong",
+  preus_csv$store == "Hong Kong Chinese" ~ "dup",
   preus_csv$store == "Czech" ~ "Czech Republic",
   preus_csv$store == "Korea" ~ "South Korea",
-  preus_csv$store == "French Canada" ~ "Canada",
+  preus_csv$store == "French Canada" ~ "dup",
   preus_csv$store == "Finnish" ~ "Finland",
   preus_csv$store == "Irish" ~ "Ireland",
   preus_csv$store == "NZ" ~ "New Zealand",
@@ -90,13 +90,13 @@ preus_csv$Country <- case_when(
   preus_csv$store == "Belgium French" ~ "Belgium",
   preus_csv$store == "Swedish" ~ "Sweden",
   preus_csv$store == "UAE" ~ "United Arab Emirates",
-  preus_csv$store == "Belgium Flemish" ~ "Belgium",
+  preus_csv$store == "Belgium Flemish" ~ "dup",
   preus_csv$store == "IN" ~ "India",
   preus_csv$store == "UK" ~ "United Kingdom",
   preus_csv$store == "Swiss French" ~ "Switzerland",
   preus_csv$store == "Italian" ~ "Italy",
   preus_csv$store == "AOS: Apple Store Luxembourg" ~ "Luxembourg",
-  preus_csv$store == "Swiss German" ~ "Switzerland",
+  preus_csv$store == "Swiss German" ~ "dup",
   preus_csv$store == "French" ~ "France",
   preus_csv$store == "HongKong" ~ "Hong Kong",
   preus_csv$store == "Dutch" ~ "Netherlands",
@@ -108,18 +108,53 @@ head(preus_csv)
 
 Donada la neteja anterior fem una fusió dels 3 datasets:
 ```{r}
-# Primer el dataset principal de preus amb el de canvi de divises.
-preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency")
+# Eliminem les files duplicades (paisos amb pagines amb dues idiomes, mateix preu)
+preus_csv <- distinct(preus_csv)
+preus_csv <- preus_csv[preus_csv$Country != "dup", ]
+
+# Primer el dataset principal de preus amb el de canvi de divises. Posem all.x per a assegurar-nos que tenim totes les dades descarregades de
+# les pàgines de Apple 
+preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency", all.x = TRUE)
 
 #Segon el dataset anterior amb el de salaris mensuals mitjans per pais.
-apple_index_raw <- merge(preus_divises_csv, salaris_csv, by.x = "Country", by.y = "Country")
+apple_index_raw <- merge(preus_divises_csv, salaris_csv, by.x = "Country", by.y = "Country", all.x = TRUE)
 
+# Mirem com queda el dataset
 head(apple_index_raw)
+
+# Mirem si existeixen valors nuls
 anyNA(apple_index_raw)
 ```
 
-El resultat és en principi satisfactori, no tenim valors nuls (si observem el dataset per exemple de average_monthly_salary_index.csv en tenia però s'han perdut en la fusió). 
+Observem com existeixen valors nuls, així que passarem a veure com tractar-los
+
+```{r}
+# Com que ens apareixen valors nuls, veurem quins son
+summary(apple_index_raw)
+```
+
+Observem col els valors nuls es troben a "EUR.Average.Monthly.Salary" i "USD.Average.Monthly.Salary", aixi que veurem si trobem el motiu i com ho podem arreglar.
+
+```{r}
+# Com que ens apareixen valors nuls, veurem qhins son
+head(apple_index_raw[which(is.na(apple_index_raw$EUR.Average.Monthly.Salary)) , ])
+
+```
+
+Com podem veure es deu a que de l'arxiu de salaris_csv no s'han descarregat dades per a luxembourg. Per a tractar aquest NA el que farem serà veure si podem trobar la dada, i en eixe cas introduir-la manualment. Si mirem a la mateixa pàgina de la que ens hem descarregat les dades, i busquem per pais (https://www.numbeo.com/cost-of-living/in/Luxembourg), veurem com la dada existeix, així que la introduirem: 
+
+```{r}
+# Intruduim la dada manualment
+apple_index_raw$'EUR.Average.Monthly.Salary'[apple_index_raw$Country == "Luxembourg"] <- 4140.31
+
+summary(apple_index_raw)
+
+```
+
+Veiem que ara ja no tenim NA a les dades en EUR, que son les que utilitzarem per a crear l'index.
+
 Veiem però les columnes X1.EUR.in.Currency i X1.USD.in.Currency están en "chr", per tant les hem de transformar, a més alguns valors tenen "," i no punt, per tant farem una substitució amb gsub:
+
 ```{r}
 apple_index_raw$X1.EUR.in.Currency <- as.numeric(gsub(",", "", apple_index_raw$X1.EUR.in.Currency))
 apple_index_raw$X1.USD.in.Currency <- as.numeric(gsub(",", "", apple_index_raw$X1.USD.in.Currency))
@@ -139,11 +174,10 @@ head(apple_index_raw)
 
 Finalment mirarem si tenim valors extrems al dataset i finalitzarem així el procés de neteja i integració.
 Principalment evaluarem els valors extrems per veure si la fusió s'ha realitzat amb èxit:
+
 ```{r}
 # Evaluem els boxplots de les columnes fusionades, així veurem si s'ha fusionat bé:
-
 boxplot(apple_index_raw$price)
-
 
 boxplot(apple_index_raw$X1.EUR.in.Currency)
 boxplot(apple_index_raw$X1.USD.in.Currency)
@@ -157,6 +191,18 @@ apple_index_raw[which.max(apple_index_raw$X1.USD.in.Currency),]
 ```
 Cal dir que en el nostre cas és sencill si coneixem el dataset, com podem veure els valors extrems es corresponen als preus en wons coreans, una divisa on 1€ correspon a 1,392.09₩.
 
+També veurem si existeixen valors extrems als preus dels produces convertits a EUR
+
+```{r}
+# Evaluem els boxplots de les columnes fusionades, així veurem si s'ha fusionat bé:
+apple_index_raw$price_eur <- apple_index_raw$price / apple_index_raw$X1.EUR.in.Currency
+boxplot(apple_index_raw[apple_index_raw$category == "mac", c(10)])
+boxplot(apple_index_raw[apple_index_raw$category == "iphone", c(10)])
+boxplot(apple_index_raw[apple_index_raw$category == "ipad", c(10)])
+```
+
+Observem com a la primera gràfica que és la dels "Mac", el nombre de preus en EUR que semblen valors extrems és superior. Després, els dels "Ipad" i "Iphone" son semblants. En tots els casos, com són dades descarregades de la pàgina web de la companyia en cada país, assumirem que son correctes i no les modificarem.
+
 ## 4. Anàlisi de les dades.
 ## 5. Representació dels resultats.
 L'objectiu del nostre projecte es crear un índex per paisos on es compari quants mesos de mitja ha de treballar una persona per comprar els diferents productes d'Apple, per tant haurem de fer un índex per almenys un producte de cada, per l'iPhone, l'iPad i el Macbook.
@@ -165,6 +211,7 @@ Primer hem de calcular els mesos que em de treballar per comprar-ne un per pais:
 Amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
 La fòrmula és:
 Preu producte apple / (Sou mitjà mensual * Canvi de divisa a 1€)
+
 ```{r}
 apple_index_raw$months_to_buy_product <- apple_index_raw$price / (apple_index_raw$EUR.Average.Monthly.Salary * apple_index_raw$X1.EUR.in.Currency)
 head(apple_index_raw)
@@ -174,7 +221,6 @@ Finalment agafem un subset amb només els productes que coincideixen amb el mode
 ```{r}
 iphone14PM_index <- subset(apple_index_raw, apple_index_raw$name == "iPhone 14 Pro Max 128GB Silver")
 
-iphone14PM_index <- subset(apple_index_raw, apple_index_raw$name == "iPhone 14 Pro Max 128GB Silver")
 ggplot(iphone14PM_index, aes(x=reorder(Country,months_to_buy_product), y=months_to_buy_product)) + 
   geom_bar(stat="identity", fill = "lightblue") +
   xlab("Country") +
@@ -186,8 +232,6 @@ ggplot(iphone14PM_index, aes(x=reorder(Country,months_to_buy_product), y=months_
 ```
 Ara fem el mateix per un model d'Ipad:
 ```{r}
-ipadPro12_index <- subset(apple_index_raw, apple_index_raw$name == "12.9-inch iPad Pro Wi-Fi + Cellular 2TB - Space Gray")
-
 ipadPro12_index <- subset(apple_index_raw, apple_index_raw$name == "12.9-inch iPad Pro Wi-Fi + Cellular 2TB - Space Gray")
 
 ggplot(ipadPro12_index, aes(x=reorder(Country,months_to_buy_product), y=months_to_buy_product)) + 
@@ -204,8 +248,6 @@ Finalment per a un model de Macbook:
 ```{r}
 MacBookPro16_index <- subset(apple_index_raw, apple_index_raw$name == "16-inch MacBook Pro - Space Gray")
 
-MacBookPro16_index <- subset(apple_index_raw, apple_index_raw$name == "16-inch MacBook Pro - Space Gray")
-
 ggplot(MacBookPro16_index, aes(x=reorder(Country,months_to_buy_product), y=months_to_buy_product)) + 
   geom_bar(stat="identity", fill = "lightblue") +
   xlab("Country") +
@@ -214,6 +256,8 @@ ggplot(MacBookPro16_index, aes(x=reorder(Country,months_to_buy_product), y=month
   coord_flip() +
   theme_minimal()
 ```
+
+Observem com en general són els mateixos països els que necessiten mes mesos de treball en mitja per a comprar tant ipad, com iphone i mac, encara que en cada producte ballen les posicions. Passa el mateix amb els països als que menys esforç els suposa
 
 ## 6. Resolució del problema.
 Com podem veure hem pogut crear aquests índex a partir de les dades d'un moment donat dels preus dels productes Apple, la paritat monetària del moment i el salari mensual mitjà per país.
