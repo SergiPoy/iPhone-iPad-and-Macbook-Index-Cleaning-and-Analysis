@@ -133,7 +133,18 @@ apple_index_raw <- apple_index_raw[, -c(3, 7, 8)]
 head(apple_index_raw)
 ```
 
+Finalment mirarem si tenim valors extrems al dataset i finalitzarem així el procés de neteja i integració.
+Principalment evaluarem els valors extrems per veure si la fusió s'ha realitzat amb èxit:
+```{r}
+# Evaluem els boxplots dels salaris, així veurem si s'ha fusionat bé:
+boxplot(apple_index_raw$EUR.Average.Monthly.Salary)
+boxplot(apple_index_raw$USD.Average.Monthly.Salary)
 
+boxplot(apple_index_raw$price)
+
+
+```
+Cal dir que en el nostre cas és sencill si coneixem el dataset, 
 
 Amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
 La fòrmula és:
