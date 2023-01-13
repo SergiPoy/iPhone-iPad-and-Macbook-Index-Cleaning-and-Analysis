@@ -17,8 +17,9 @@ library(ggplot2)
 ### Alejandro Tortosa Molla i Sergi Poy Garcia
 
 ## 1. Descripció del dataset
-Utilitzem els datasets que vam extreure a la pràctica anterior, del Iphone Ipad and Macbook Index. 
-Igual que el Big Mac Index volem tenir una comparativa de paritat de poder adquisitiu pero utilitzant com a referència els products d’Apple, per a poder tenir com a referència també un producte icònic, que no sigui del mercat de la restauració sinó de la tecnología, recordem que Apple amb iPhone representa una part molt important de la venda de mòbils a nivell global (https://gs.statcounter.com/vendor-market-share/mobile).
+Utilitzem els datasets que vam extreure a la pràctica anterior, del Iphone Ipad and Macbook Index.
+Per a poder realitzar l'Índex haurem de fusionar-los e integrar les dades.
+Igual que el Big Mac Index volem tenir una comparativa de paritat de poder adquisitiu pero utilitzant com a referència els products d’Apple, per a poder tenir com a referència també un producte icònic, que no sigui del mercat de la restauració sinó de la tecnología, recordem que Apple representa una part molt important de la venda de mòbils a nivell global amb el seu mòbil insígnia iPhone (https://gs.statcounter.com/vendor-market-share/mobile).
 
 ## 2. Integracció i selecció
 
@@ -30,8 +31,21 @@ Per al nostre projecte el que farem serà treballar amb els 3 datasets que vam o
 - preus_mac_ipad_iphone.csv: Finalment en aquest arxiu tenim totes les dades de tots els models de Macbook, iPad i iPhone amb el seu identificatiu. Tenim a més el país on es ven cada model, així com una columna amb al divisa en la que está el preu de cada dispositiu.
 
 Obtenim així totes les dades importants i representatives a l’hora de voler elaborar l’índex com a objectiu de la pràctica.
+Però per a aconseguir l'objectiu les haurem de fusionar en un sol dataset. L'arxiu troncal a partir del qual treballarem és el dels preus_mac_ipad_iphone.csv:
 
-Les carreguem a R per a poder treballar amb elles:
+Primer fusionem preus_mac_ipad_iphone.csv amb world_currencies.csv a partir de la columna Currency.
+Després fusionem el dataset resultant amb average_monthly_salary_index.csv a partir de la columna Country.
+
+Això però ho farem després de la neteja.
+
+
+## 3. Neteja de les dades
+
+La neteja de les dades va ítegrament relacionada amb la integració d'aquestes, ja que per a poder-les fusionar amb èxit em de veure que els valors entre columnes coincideixin. Per a més tard quan aquesta integració es faci amb èxit poguem reduir la quantitat de columnes i veure si tenim una cohesió entre elles.
+
+
+
+Per tant anem a treballar amb les dades i les carreguem a R:
 ```{r}
 preus_csv <- read.csv("../csv/preus_mac_ipad_iphone.csv")
 salaris_csv <- read.csv("../csv/average_monthly_salary_index.csv")
@@ -40,12 +54,14 @@ divises_csv <- read.csv("../csv/world_currencies.csv")
 
 
 Com que la columna de "price" té aquest format: "{'fullPrice': 499990.0}"
-Hem d'extreure amb gsub i una RegEx el preu en format enter en comptes de "chr".
+Hem d'extreure amb gsub i una RegEx el preu, modifiquem amb as.numeric el seu format, per a fer un anàlisi ha de ser un numèric, no un "chr".
 ```{r}
+class(preus_csv$price)
 preus_csv$price <- as.numeric(gsub("[^[:digit:].]", "", preus_csv$price))
 head(preus_csv)
 ```
-També en el procés de neteja intentem extreure el país de la columna "store":
+
+També hem d'extreure el país de la columna "store":
 
 ```{r}
 preus_csv$store <- gsub("^AOS: (.*) [Consumer|consumer].*$", "\\1", preus_csv$store)
