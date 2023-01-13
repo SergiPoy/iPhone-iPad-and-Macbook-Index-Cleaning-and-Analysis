@@ -1,0 +1,112 @@
+"","Country","currency","price","category","name","X1.EUR.in.Currency","X1.USD.in.Currency","EUR.Average.Monthly.Salary","USD.Average.Monthly.Salary","price_eur","months_to_buy_product"
+"40","Australia","AUD",3749,"mac","16-inch MacBook Pro - Space Gray",1.55,1.5,3915.54,4050.82,2418.70967741935,0.617720589604334
+"118","Australia","AUD",5249,"mac","16-inch MacBook Pro - Space Gray",1.55,1.5,3915.54,4050.82,3386.45161290323,0.864874733217698
+"119","Australia","AUD",4049,"mac","16-inch MacBook Pro - Space Gray",1.55,1.5,3915.54,4050.82,2612.25806451613,0.667151418327007
+"193","Austria","EUR",3849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2188.01,2263.61,3849,1.75913272791258
+"207","Austria","EUR",2749,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2188.01,2263.61,2749,1.25639279527973
+"249","Austria","EUR",2979,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2188.01,2263.61,2979,1.36151114483023
+"446","Belgium","EUR",2983.8,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2347.03,2428.12,2983.8,1.27130884564748
+"447","Belgium","EUR",3853.8,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2347.03,2428.12,3853.8,1.6419900896026
+"471","Belgium","EUR",2753.8,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2347.03,2428.12,2753.8,1.17331265471681
+"577","Brazil","BRL",38999,"mac","16-inch MacBook Pro - Space Gray",5.54,5.38,359.84,372.27,7039.53068592058,19.5629465482453
+"618","Brazil","BRL",28999,"mac","16-inch MacBook Pro - Space Gray",5.54,5.38,359.84,372.27,5234.47653429603,14.5466777853936
+"659","Brazil","BRL",30999,"mac","16-inch MacBook Pro - Space Gray",5.54,5.38,359.84,372.27,5595.48736462094,15.5499315379639
+"748","Canada","CAD",3399,"mac","16-inch MacBook Pro - Space Gray",1.38,1.34,3018.58,3122.87,2463.04347826087,0.815960974451852
+"835","Canada","CAD",4399,"mac","16-inch MacBook Pro - Space Gray",1.38,1.34,3018.58,3122.87,3187.68115942029,1.0560201019752
+"842","Canada","CAD",3149,"mac","16-inch MacBook Pro - Space Gray",1.38,1.34,3018.58,3122.87,2281.88405797101,0.755946192571015
+"1003","China","CNY",18999,"mac","16-inch MacBook Pro - Space Gray",7.36,7.16,1041.29,1077.27,2581.38586956522,2.47902685089189
+"1016","China","CNY",26499,"mac","16-inch MacBook Pro - Space Gray",7.36,7.16,1041.29,1077.27,3600.40760869565,3.45764158754588
+"1019","China","CNY",20499,"mac","16-inch MacBook Pro - Space Gray",7.36,7.16,1041.29,1077.27,2785.1902173913,2.67474979822269
+"1089","Czech Republic","CZK",102990,"mac","16-inch MacBook Pro - Space Gray",24.36,23.69,1385.62,1433.5,4227.83251231527,3.05122076205256
+"1118","Czech Republic","CZK",78990,"mac","16-inch MacBook Pro - Space Gray",24.36,23.69,1385.62,1433.5,3242.61083743842,2.34018766865261
+"1223","Czech Republic","CZK",72990,"mac","16-inch MacBook Pro - Space Gray",24.36,23.69,1385.62,1433.5,2996.30541871921,2.16242939530262
+"1385","Denmark","DKK",23655,"mac","16-inch MacBook Pro - Space Gray",7.44,7.23,3224.74,3336.16,3179.43548387097,0.985950955385851
+"1442","Denmark","DKK",30855,"mac","16-inch MacBook Pro - Space Gray",7.44,7.23,3224.74,3336.16,4147.17741935484,1.2860501681856
+"1445","Denmark","DKK",21855,"mac","16-inch MacBook Pro - Space Gray",7.44,7.23,3224.74,3336.16,2937.5,0.910926152185913
+"1474","Finland","EUR",3949,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2501.21,2587.63,3949,1.57883584345177
+"1499","Finland","EUR",2849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2501.21,2587.63,2849,1.13904870042899
+"1570","Finland","EUR",3079,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2501.21,2587.63,3079,1.23100419397012
+"1750","France","EUR",3849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2292.87,2372.08,3849,1.67868217561397
+"1773","France","EUR",2979,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2292.87,2372.08,2979,1.29924505096233
+"1801","France","EUR",2749,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2292.87,2372.08,2749,1.19893408697397
+"1912","Germany","EUR",2749,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2746.88,2841.78,2749,1.00077178471575
+"1935","Germany","EUR",2979,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2746.88,2841.78,2979,1.08450314538677
+"1985","Germany","EUR",3849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2746.88,2841.78,3849,1.40122611835974
+"2102","Hong Kong","HKD",19799,"mac","16-inch MacBook Pro - Space Gray",8.03,7.81,2939.05,3040.59,2465.62889165629,0.838920362585287
+"2103","Hong Kong","HKD",21299,"mac","16-inch MacBook Pro - Space Gray",8.03,7.81,2939.05,3040.59,2652.42839352428,0.902478145497451
+"2104","Hong Kong","HKD",27299,"mac","16-inch MacBook Pro - Space Gray",8.03,7.81,2939.05,3040.59,3399.62640099626,1.15670927714611
+"2240","Hungary","HUF",1239990,"mac","16-inch MacBook Pro - Space Gray",407.36,396.17,765.67,792.13,3043.96602513747,3.97555869387265
+"2241","Hungary","HUF",1339990,"mac","16-inch MacBook Pro - Space Gray",407.36,396.17,765.67,792.13,3289.44913589945,4.29617085154107
+"2242","Hungary","HUF",1739990,"mac","16-inch MacBook Pro - Space Gray",407.36,396.17,765.67,792.13,4271.38157894737,5.57861948221475
+"2373","India","INR",259900,"mac","16-inch MacBook Pro - Space Gray",84.1,81.79,529.91,548.22,3090.36860879905,5.83187448585429
+"2379","India","INR",329900,"mac","16-inch MacBook Pro - Space Gray",84.1,81.79,529.91,548.22,3922.71105826397,7.40259866442221
+"2404","India","INR",239900,"mac","16-inch MacBook Pro - Space Gray",84.1,81.79,529.91,548.22,2852.5564803805,5.3830961491206
+"2645","Ireland","EUR",3849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2660.29,2752.2,3849,1.44683474358059
+"2654","Ireland","EUR",2749,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2660.29,2752.2,2749,1.03334598859523
+"2683","Ireland","EUR",2979,"mac","16-inch MacBook Pro - Space Gray",1,0.97,2660.29,2752.2,2979,1.11980272827399
+"2736","Italy","EUR",3079,"mac","16-inch MacBook Pro - Space Gray",1,0.97,1472.86,1523.75,3079,2.09049061010551
+"2740","Italy","EUR",3949,"mac","16-inch MacBook Pro - Space Gray",1,0.97,1472.86,1523.75,3949,2.68117811604633
+"2748","Italy","EUR",2849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,1472.86,1523.75,2849,1.93433184416713
+"3044","Japan","JPY",478800,"mac","16-inch MacBook Pro - Space Gray",144.52,140.55,2296.06,2375.39,3313.03625795738,1.44292233563469
+"3068","Japan","JPY",338800,"mac","16-inch MacBook Pro - Space Gray",144.52,140.55,2296.06,2375.39,2344.31220592306,1.02101521995203
+"3073","Japan","JPY",366800,"mac","16-inch MacBook Pro - Space Gray",144.52,140.55,2296.06,2375.39,2538.05701632992,1.10539664308856
+"3190","Luxembourg","EUR",3726.4,"mac","16-inch MacBook Pro - Space Gray",1,0.97,4140.31,NA,3726.4,0.900029224864805
+"3243","Luxembourg","EUR",2662.77,"mac","16-inch MacBook Pro - Space Gray",1,0.97,4140.31,NA,2662.77,0.643133002118199
+"3254","Luxembourg","EUR",2885.16,"mac","16-inch MacBook Pro - Space Gray",1,0.97,4140.31,NA,2885.16,0.696846371406972
+"3363","Malaysia","MYR",10799,"mac","16-inch MacBook Pro - Space Gray",4.7,4.57,810.1,838.09,2297.65957446808,2.83626660223193
+"3364","Malaysia","MYR",11599,"mac","16-inch MacBook Pro - Space Gray",4.7,4.57,810.1,838.09,2467.87234042553,3.04637987955256
+"3365","Malaysia","MYR",14799,"mac","16-inch MacBook Pro - Space Gray",4.7,4.57,810.1,838.09,3148.72340425532,3.88683298883511
+"3445","Mexico","MXN",71999,"mac","16-inch MacBook Pro - Space Gray",20.03,19.48,647.27,669.64,3594.55816275587,5.55341381920353
+"3446","Mexico","MXN",93999,"mac","16-inch MacBook Pro - Space Gray",20.03,19.48,647.27,669.64,4692.91063404893,7.25031383201589
+"3458","Mexico","MXN",66499,"mac","16-inch MacBook Pro - Space Gray",20.03,19.48,647.27,669.64,3319.9700449326,5.12918881600043
+"3664","Netherlands","EUR",2749,"mac","16-inch MacBook Pro - Space Gray",1,0.97,3100.58,3207.71,2749,0.88660831199324
+"3665","Netherlands","EUR",3849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,3100.58,3207.71,3849,1.2413806449116
+"3733","Netherlands","EUR",2979,"mac","16-inch MacBook Pro - Space Gray",1,0.97,3100.58,3207.71,2979,0.960787981603442
+"3833","New Zealand","NZD",6049,"mac","16-inch MacBook Pro - Space Gray",1.68,1.63,3144.8,3253.45,3600.59523809524,1.14493616067643
+"3846","New Zealand","NZD",4649,"mac","16-inch MacBook Pro - Space Gray",1.68,1.63,3144.8,3253.45,2767.26190476191,0.879948456105922
+"3849","New Zealand","NZD",4299,"mac","16-inch MacBook Pro - Space Gray",1.68,1.63,3144.8,3253.45,2558.92857142857,0.813701529963295
+"4089","Norway","NOK",31990,"mac","16-inch MacBook Pro - Space Gray",10.53,10.24,3140.11,3248.6,3037.98670465337,0.96747779684577
+"4090","Norway","NOK",41990,"mac","16-inch MacBook Pro - Space Gray",10.53,10.24,3140.11,3248.6,3987.65432098765,1.26990911814798
+"4114","Norway","NOK",29490,"mac","16-inch MacBook Pro - Space Gray",10.53,10.24,3140.11,3248.6,2800.5698005698,0.891869966520218
+"4250","Philippines","PHP",146990,"mac","16-inch MacBook Pro - Space Gray",58.91,57.29,280.64,290.34,2495.16211169581,8.89097103654435
+"4251","Philippines","PHP",158990,"mac","16-inch MacBook Pro - Space Gray",58.91,57.29,280.64,290.34,2698.86267187235,9.61681396761812
+"4252","Philippines","PHP",206990,"mac","16-inch MacBook Pro - Space Gray",58.91,57.29,280.64,290.34,3513.66491257851,12.5201856919132
+"4430","Poland","PLN",14399,"mac","16-inch MacBook Pro - Space Gray",4.7,4.57,977.16,1010.92,3063.6170212766,3.13522557337242
+"4498","Poland","PLN",15599,"mac","16-inch MacBook Pro - Space Gray",4.7,4.57,977.16,1010.92,3318.93617021277,3.39651251608003
+"4499","Poland","PLN",20399,"mac","16-inch MacBook Pro - Space Gray",4.7,4.57,977.16,1010.92,4340.21276595745,4.44166028691048
+"4604","Portugal","EUR",3949,"mac","16-inch MacBook Pro - Space Gray",1,0.97,978.36,1012.16,3949,4.03634653910626
+"4628","Portugal","EUR",3079,"mac","16-inch MacBook Pro - Space Gray",1,0.97,978.36,1012.16,3079,3.14710331575289
+"4654","Portugal","EUR",2849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,978.36,1012.16,2849,2.91201602682039
+"4796","Singapore","SGD",5249,"mac","16-inch MacBook Pro - Space Gray",1.42,1.38,4363.86,4514.63,3696.47887323944,0.847066329634644
+"4832","Singapore","SGD",4049,"mac","16-inch MacBook Pro - Space Gray",1.42,1.38,4363.86,4514.63,2851.40845070423,0.653414282471075
+"4857","Singapore","SGD",3749,"mac","16-inch MacBook Pro - Space Gray",1.42,1.38,4363.86,4514.63,2640.14084507042,0.605001270680183
+"4941","South Korea","KRW",3630000,"mac","16-inch MacBook Pro - Space Gray",1392.09,1353.83,2105.13,2177.86,2607.59002650691,1.23868360932907
+"4953","South Korea","KRW",3360000,"mac","16-inch MacBook Pro - Space Gray",1392.09,1353.83,2105.13,2177.86,2413.63704932871,1.14655011772608
+"4955","South Korea","KRW",4710000,"mac","16-inch MacBook Pro - Space Gray",1392.09,1353.83,2105.13,2177.86,3383.40193521971,1.60721757574103
+"5149","Spain","EUR",2749,"mac","16-inch MacBook Pro - Space Gray",1,0.97,1683.33,1741.49,2749,1.6330725407377
+"5151","Spain","EUR",3849,"mac","16-inch MacBook Pro - Space Gray",1,0.97,1683.33,1741.49,3849,2.28653918126571
+"5163","Spain","EUR",2979,"mac","16-inch MacBook Pro - Space Gray",1,0.97,1683.33,1741.49,2979,1.76970647466629
+"5361","Sweden","SEK",42495,"mac","16-inch MacBook Pro - Space Gray",10.99,10.69,2465.83,2551.03,3866.69699727025,1.56811175031135
+"5372","Sweden","SEK",29995,"mac","16-inch MacBook Pro - Space Gray",10.99,10.69,2465.83,2551.03,2729.29936305732,1.10684814567806
+"5373","Sweden","SEK",32495,"mac","16-inch MacBook Pro - Space Gray",10.99,10.69,2465.83,2551.03,2956.77888989991,1.19910086660472
+"5435","Switzerland","CHF",2755,"mac","16-inch MacBook Pro - Space Gray",0.98,0.96,5519.08,5709.76,2811.22448979592,0.509364692991571
+"5500","Switzerland","CHF",2976,"mac","16-inch MacBook Pro - Space Gray",0.98,0.96,5519.08,5709.76,3036.73469387755,0.550224800850423
+"5529","Switzerland","CHF",3856,"mac","16-inch MacBook Pro - Space Gray",0.98,0.96,5519.08,5709.76,3934.69387755102,0.712925682822322
+"5735","Taiwan","TWD",74900,"mac","16-inch MacBook Pro - Space Gray",32.07,31.19,1424.77,1473.99,2335.51605862176,1.63922321400771
+"5736","Taiwan","TWD",80900,"mac","16-inch MacBook Pro - Space Gray",32.07,31.19,1424.77,1473.99,2522.60679763018,1.77053615504972
+"5737","Taiwan","TWD",104900,"mac","16-inch MacBook Pro - Space Gray",32.07,31.19,1424.77,1473.99,3270.96975366386,2.29578791921774
+"5830","Thailand","THB",89900,"mac","16-inch MacBook Pro - Space Gray",37.08,36.07,490.97,507.93,2424.48759439051,4.93815832818809
+"5831","Thailand","THB",96900,"mac","16-inch MacBook Pro - Space Gray",37.08,36.07,490.97,507.93,2613.26860841424,5.32266453839184
+"5832","Thailand","THB",124900,"mac","16-inch MacBook Pro - Space Gray",37.08,36.07,490.97,507.93,3368.39266450917,6.86068937920681
+"6042","Turkey","TRY",71999,"mac","16-inch MacBook Pro - Space Gray",19.13,18.6,314.51,325.38,3763.6696288552,11.9667725314146
+"6079","Turkey","TRY",51999,"mac","16-inch MacBook Pro - Space Gray",19.13,18.6,314.51,325.38,2718.19132253006,8.64262288172096
+"6080","Turkey","TRY",55999,"mac","16-inch MacBook Pro - Space Gray",19.13,18.6,314.51,325.38,2927.28698379509,9.30745281165968
+"6203","United Arab Emirates","AED",11439,"mac","16-inch MacBook Pro - Space Gray",3.78,3.67,3577.93,3701.54,3026.19047619048,0.845793650571833
+"6271","United Arab Emirates","AED",14799,"mac","16-inch MacBook Pro - Space Gray",3.78,3.67,3577.93,3701.54,3915.07936507937,1.09423028541066
+"6314","United Arab Emirates","AED",10599,"mac","16-inch MacBook Pro - Space Gray",3.78,3.67,3577.93,3701.54,2803.96825396825,0.783684491862125
+"6339","United Kingdom","GBP",2599,"mac","16-inch MacBook Pro - Space Gray",0.87,0.85,2579.14,2668.25,2987.35632183908,1.15827613927087
+"6354","United Kingdom","GBP",3299,"mac","16-inch MacBook Pro - Space Gray",0.87,0.85,2579.14,2668.25,3791.95402298851,1.47023970121378
+"6362","United Kingdom","GBP",2399,"mac","16-inch MacBook Pro - Space Gray",0.87,0.85,2579.14,2668.25,2757.47126436782,1.06914369300147
+"6583","United States","USD",3499,"mac","16-inch MacBook Pro - Space Gray",1.03,1,4001.74,4140,3397.08737864078,0.848902572041356
+"6625","United States","USD",2699,"mac","16-inch MacBook Pro - Space Gray",1.03,1,4001.74,4140,2620.38834951456,0.654812244052478
+"6666","United States","USD",2499,"mac","16-inch MacBook Pro - Space Gray",1.03,1,4001.74,4140,2426.21359223301,0.606289662055258
