@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(stringr)
 library(dplyr)
 library(ggplot2)
+library(knitr)
 ```
 
 # Tipologia i cicle de vida de les dades · Pràctica 2
@@ -221,3 +222,7 @@ Tot i així trobem que la base del problema l'hem resolt.
 
 ## 7. Codi.
 Com que hem treballat amb Rmarkdown hem pogut veure com estavem resolent el problema mentres ensenyem quin codi hem utilitzat per a assolir-ho.
+
+```{r}
+kable(data.frame(Contribucions = c("Investigació prèvia", "Redacció de les respostes", "Desenvolupament del codi", "Participació al video"), Signatura = c("Alex, Sergi", "Alex, Sergi","Alex, Sergi","Alex, Sergi")))
+```
