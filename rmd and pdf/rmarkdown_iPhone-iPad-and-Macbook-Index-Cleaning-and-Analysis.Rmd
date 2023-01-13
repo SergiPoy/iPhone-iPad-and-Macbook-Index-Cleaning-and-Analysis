@@ -118,12 +118,15 @@ anyNA(apple_index_raw)
 ```
 
 El resultat és en principi satisfactori, no tenim valors nuls (si observem el dataset per exemple de average_monthly_salary_index.csv en tenia però s'han perdut en la fusió). 
-Veiem però les columnes X1.EUR.in.Currency i X1.USD.in.Currency están en "chr", per tant les hem de transformar:
+Veiem però les columnes X1.EUR.in.Currency i X1.USD.in.Currency están en "chr", per tant les hem de transformar, a més alguns valors tenen "," i no punt, per tant farem una substitució amb gsub:
 ```{r}
+apple_index_raw$X1.EUR.in.Currency <- as.numeric(gsub(",", "", apple_index_raw$X1.EUR.in.Currency))
+apple_index_raw$X1.USD.in.Currency <- as.numeric(gsub(",", "", apple_index_raw$X1.USD.in.Currency))
+
 apple_index_raw$X1.EUR.in.Currency <- as.numeric(apple_index_raw$X1.EUR.in.Currency)
 apple_index_raw$X1.USD.in.Currency <- as.numeric(apple_index_raw$X1.USD.in.Currency)
 
-unique(apple_index_raw)
+head(apple_index_raw)
 
 ```
 
@@ -136,34 +139,74 @@ head(apple_index_raw)
 Finalment mirarem si tenim valors extrems al dataset i finalitzarem així el procés de neteja i integració.
 Principalment evaluarem els valors extrems per veure si la fusió s'ha realitzat amb èxit:
 ```{r}
-# Evaluem els boxplots dels salaris, així veurem si s'ha fusionat bé:
-boxplot(apple_index_raw$EUR.Average.Monthly.Salary)
-boxplot(apple_index_raw$USD.Average.Monthly.Salary)
+# Evaluem els boxplots de les columnes fusionades, així veurem si s'ha fusionat bé:
 
 boxplot(apple_index_raw$price)
 
 
+boxplot(apple_index_raw$X1.EUR.in.Currency)
+boxplot(apple_index_raw$X1.USD.in.Currency)
+
+boxplot(apple_index_raw$EUR.Average.Monthly.Salary)
+boxplot(apple_index_raw$USD.Average.Monthly.Salary)
+
+apple_index_raw[which.max(apple_index_raw$price),]
+apple_index_raw[which.max(apple_index_raw$X1.EUR.in.Currency),]
+apple_index_raw[which.max(apple_index_raw$X1.USD.in.Currency),]
 ```
-Cal dir que en el nostre cas és sencill si coneixem el dataset, 
+Cal dir que en el nostre cas és sencill si coneixem el dataset, com podem veure els valors extrems es corresponen als preus en wons coreans, una divisa on 1€ correspon a 1,392.09₩.
+
+## 4. Anàlisi de les dades.
 
 Amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
 La fòrmula és:
 Preu producte apple / (Sou mitjà mensual * Canvi de divisa a 1€)
 ```{r}
 apple_index_raw$months_to_buy_product <- apple_index_raw$price / (apple_index_raw$EUR.Average.Monthly.Salary * apple_index_raw$X1.EUR.in.Currency)
-print(apple_index_raw)
+head(apple_index_raw)
 ```
 
 Finalment agafem un subset amb només els productes que coincideixen amb el model d'iPhone que volem analitzar i ho plotejem:
 ```{r}
 iphone14PM_index <- subset(apple_index_raw, apple_index_raw$name == "iPhone 14 Pro Max 128GB Silver")
 
-
-ggplot(iphone14PM_index, aes(x=Country, y=months_to_buy_product)) + 
-  geom_bar(stat="identity") +
+iphone14PM_index <- subset(apple_index_raw, apple_index_raw$name == "iPhone 14 Pro Max 128GB Silver")
+ggplot(iphone14PM_index, aes(x=reorder(Country,months_to_buy_product), y=months_to_buy_product)) + 
+  geom_bar(stat="identity", fill = "lightblue") +
   xlab("Country") +
   ylab("Months to buy iPhone") +
-  ggtitle("Months to buy iPhone 14 Pro Max 128GB Silver by country")
+  ggtitle("Months to buy iPhone 14 Pro Max 128GB Silver by Country") +
+  coord_flip() +
+  theme_minimal()
+
+```
+Ara fem el mateix per un model d'Ipad:
+```{r}
+ipadPro12_index <- subset(apple_index_raw, apple_index_raw$name == "12.9-inch iPad Pro Wi-Fi + Cellular 2TB - Space Gray")
+
+ipadPro12_index <- subset(apple_index_raw, apple_index_raw$name == "12.9-inch iPad Pro Wi-Fi + Cellular 2TB - Space Gray")
+
+ggplot(ipadPro12_index, aes(x=reorder(Country,months_to_buy_product), y=months_to_buy_product)) + 
+  geom_bar(stat="identity", fill = "lightblue") +
+  xlab("Country") +
+  ylab("Months to buy iPad Pro") +
+  ggtitle("Months to buy 12.9-inch iPad Pro Wi-Fi + Cellular 2TB - Space Gray
+y") +
+  coord_flip() +
+  theme_minimal()
 ```
 
+Finalment per a un model de Macbook:
+```{r}
+MacBookPro16_index <- subset(apple_index_raw, apple_index_raw$name == "16-inch MacBook Pro - Space Gray")
 
+MacBookPro16_index <- subset(apple_index_raw, apple_index_raw$name == "16-inch MacBook Pro - Space Gray")
+
+ggplot(MacBookPro16_index, aes(x=reorder(Country,months_to_buy_product), y=months_to_buy_product)) + 
+  geom_bar(stat="identity", fill = "lightblue") +
+  xlab("Country") +
+  ylab("Months to buy Macbook Pro") +
+  ggtitle("Months to buy 16-inch MacBook Pro - Space Gray") +
+  coord_flip() +
+  theme_minimal()
+```
