@@ -53,24 +53,26 @@ divises_csv <- read.csv("../csv/world_currencies.csv")
 ```
 
 
-Com que la columna de "price" té aquest format: "{'fullPrice': 499990.0}"
-Hem d'extreure amb gsub i una RegEx el preu, modifiquem amb as.numeric el seu format, per a fer un anàlisi ha de ser un numèric, no un "chr".
+La columna de "price" té aquest format: "{'fullPrice': 499990.0}".
+Hem d'extreure amb gsub i una RegEx el preu. Com que la columna original es de tipus caràcter (chr) modifiquem amb as.numeric el seu format per obtenir el preu en numèric.
 ```{r}
 class(preus_csv$price)
+
 preus_csv$price <- as.numeric(gsub("[^[:digit:].]", "", preus_csv$price))
 head(preus_csv)
 ```
 
-També hem d'extreure el país de la columna "store":
+També hem d'extreure el país de la columna "store" amb una RegEx:
 
 ```{r}
+# En aquest cas gsub serà suficient per substituir el valor per el coincident amb la RegEx.
 preus_csv$store <- gsub("^AOS: (.*) [Consumer|consumer].*$", "\\1", preus_csv$store)
 unique(preus_csv$store)
 ```
-Com podem veure amb els valors unics el filtratge no ha sortit del tot bé, i tot i així els valors no coincideixen amb un equivalent per a fer un "merge" amb salaris_csv, per exemple de valor tenim "UK" però a salaris_csv tenim "United Kingdom", per tant utilitzarem la funció case_when() per a modificar els valors que no coincideixen.
+Com podem veure pels valors unics el filtratge no ha sortit del tot bé, i no coincideixen amb els equivalents de salaris_csv per a fer una fusió exitosa.
+Per exemple de valor tenim "UK" però a salaris_csv tenim "United Kingdom", per tant utilitzarem la funció case_when() per a modificar-los.
 
 Aparentment es un treball tediós però així ens asegurem que les dades estiguin ven integrades i tinguin coherència entre elles. 
-Crearem una nova columna on canviarem només el nom en els casos necessaris, en els que no el valor serà el mateix.
 
 ```{r}
 preus_csv$Country <- case_when(
@@ -98,30 +100,45 @@ preus_csv$Country <- case_when(
   preus_csv$store == "HongKong" ~ "Hong Kong",
   preus_csv$store == "Dutch" ~ "Netherlands",
   TRUE ~ preus_csv$store
+  # Amb TRUE ~ preus_csv$store copiem els valors que no hem especificat a la nova columna.
 )
-print(preus_csv)
+head(preus_csv)
 ```
 
-Donada la neteja anterior per a preparar les dades per a la fusió agafem i fem un "merge" dels 3 Csv's:
+Donada la neteja anterior fem una fusió dels 3 datasets:
 ```{r}
+# Primer el dataset principal de preus amb el de canvi de divises.
 preus_divises_csv <- merge(preus_csv, divises_csv, by.x = "currency", by.y = "Currency")
+
+#Segon el dataset anterior amb el de salaris mensuals mitjans per pais.
 apple_index_raw <- merge(preus_divises_csv, salaris_csv, by.x = "Country", by.y = "Country")
 
-print(apple_index_raw)
-
+head(apple_index_raw)
+anyNA(apple_index_raw)
 ```
 
-
-Ara és hora de fer l'index, preparem les dues columnes que estaven com a "chr" i les pasem a numèric. Posteriorment amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
-La fòrmula és:
-Preu producte apple / (Sou mitjà mensual * Canvi de divisa a 1€)
+El resultat és en principi satisfactori, no tenim valors nuls (si observem el dataset per exemple de average_monthly_salary_index.csv en tenia però s'han perdut en la fusió). 
+Veiem però les columnes X1.EUR.in.Currency i X1.USD.in.Currency están en "chr", per tant les hem de transformar:
 ```{r}
-class(apple_index_raw$X1.EUR.in.Currency)
-class(apple_index_raw$X1.USD.in.Currency)
-
 apple_index_raw$X1.EUR.in.Currency <- as.numeric(apple_index_raw$X1.EUR.in.Currency)
 apple_index_raw$X1.USD.in.Currency <- as.numeric(apple_index_raw$X1.USD.in.Currency)
 
+unique(apple_index_raw)
+
+```
+
+També tenim moltes columnes que ja no ens fan falta, cóm la de sku, country (la segona) i store. La resta encara poden ser rellevant, per tant eliminem les mencionades:
+```{r}
+apple_index_raw <- apple_index_raw[, -c(3, 7, 8)]
+head(apple_index_raw)
+```
+
+
+
+Amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
+La fòrmula és:
+Preu producte apple / (Sou mitjà mensual * Canvi de divisa a 1€)
+```{r}
 apple_index_raw$months_to_buy_product <- apple_index_raw$price / (apple_index_raw$EUR.Average.Monthly.Salary * apple_index_raw$X1.EUR.in.Currency)
 print(apple_index_raw)
 ```
@@ -138,10 +155,4 @@ ggplot(iphone14PM_index, aes(x=Country, y=months_to_buy_product)) +
   ggtitle("Months to buy iPhone 14 Pro Max 128GB Silver by country")
 ```
 
-
-## Neteja de les dades.
-Busquem si hi ha cap valor nul al dataset:
-```{r}
-anyNA(apple_index_raw)
-```
 
