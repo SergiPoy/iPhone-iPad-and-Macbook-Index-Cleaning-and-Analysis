@@ -157,7 +157,10 @@ apple_index_raw[which.max(apple_index_raw$X1.USD.in.Currency),]
 Cal dir que en el nostre cas és sencill si coneixem el dataset, com podem veure els valors extrems es corresponen als preus en wons coreans, una divisa on 1€ correspon a 1,392.09₩.
 
 ## 4. Anàlisi de les dades.
+## 5. Representació dels resultats.
+L'objectiu del nostre projecte es crear un índex per paisos on es compari quants mesos de mitja ha de treballar una persona per comprar els diferents productes d'Apple, per tant haurem de fer un índex per almenys un producte de cada, per l'iPhone, l'iPad i el Macbook.
 
+Primer hem de calcular els mesos que em de treballar per comprar-ne un per pais:
 Amb l'equivalència de l'Euro creem la fòrmula que ens dona els mesos que hem de treballar per a poder comprar un producte Apple en determinat pais.
 La fòrmula és:
 Preu producte apple / (Sou mitjà mensual * Canvi de divisa a 1€)
@@ -166,7 +169,7 @@ apple_index_raw$months_to_buy_product <- apple_index_raw$price / (apple_index_ra
 head(apple_index_raw)
 ```
 
-Finalment agafem un subset amb només els productes que coincideixen amb el model d'iPhone que volem analitzar i ho plotejem:
+Finalment agafem un subset amb només els productes que coincideixen amb el model d'iPhone que volem analitzar i ho plotejem, fent l'índex de l'iPhone:
 ```{r}
 iphone14PM_index <- subset(apple_index_raw, apple_index_raw$name == "iPhone 14 Pro Max 128GB Silver")
 
@@ -210,3 +213,11 @@ ggplot(MacBookPro16_index, aes(x=reorder(Country,months_to_buy_product), y=month
   coord_flip() +
   theme_minimal()
 ```
+
+## 6. Resolució del problema.
+Com podem veure hem pogut crear aquests índex a partir de les dades d'un moment donat dels preus dels productes Apple, la paritat monetària del moment i el salari mensual mitjà per país.
+Per tant l'objectiu de crear un Índex igual que el Big Mac Índex ha estat assolit tot i que podriem haver estat molt més rigorosos amb la neteja de dades i podriem haver treballat moltes més gràfiques que podrien haver sortit de les dades. 
+Tot i així trobem que la base del problema l'hem resolt.
+
+## 7. Codi.
+Com que hem treballat amb Rmarkdown hem pogut veure com estavem resolent el problema mentres ensenyem quin codi hem utilitzat per a assolir-ho.
