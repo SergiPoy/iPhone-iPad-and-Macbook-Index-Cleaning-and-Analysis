@@ -20,11 +20,15 @@ Finalment, hem fet una gràfica per cada dispositiu d'Apple (un model de cada), 
 
 També es poden fer més gràfiques amb diferents dispositius que els que nosaltres hem escollit, per tant, i si voleu, us animem a descarregar el codi i visualitzar les dades que cregueu més rellevants.
 
+
 ## Llibreries utilitzades en R (Necessària la seva instal·lació  per la correcta execució del codi)
 - stringr
 - dplyr
 - ggplot2
 - knitr
+
+## Video explicatiu
+Enllaç al video: https://drive.google.com/file/d/1h1Hfr1bIYGwcvjNKSjLBW-Rbbug5OM3X/view?usp=sharing
 
 ## Membres de l'equip
 - Alejandro Tortosa
